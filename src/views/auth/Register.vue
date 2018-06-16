@@ -6,7 +6,7 @@
                     <h3 class="panel-title">请注册</h3>
                 </div>
 
-                                <div class="panel-body" data-validator-form>
+               <div class="panel-body" id="data-validator-form">
                     <div class="form-group">
                         <label class="control-label">用户名</label>
                         <input v-validator:input.required="{ regex: /^[a-zA-Z]+\w*\s?\w*$/, error: '用户名要求以字母开头的单词字符' }" type="text" class="form-control" placeholder="请填写用户名">
