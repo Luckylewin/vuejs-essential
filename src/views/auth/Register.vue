@@ -64,7 +64,7 @@ export default {
     },
     methods: {
        getCaptcha() {
-            const { tpl, captcha } = createCaptcha()
+            const { tpl, captcha } = createCaptcha(4)
             
             this.captchaTpl = tpl
             // 添加了一个自定义的属性，我们稍后会在其他方法中访问 this.localCaptcha，
@@ -91,21 +91,23 @@ export default {
                    password: this.password,
                    avatar: `https://api.adorable.io/avatars/200/${this.username}.png`
                }
-               const localUser = ls.getItem('user')
+              //const localUser = ls.getItem('user')
+                const localUser = this.$store.state.user
 
-               if (localUser) {
-                   if (localUser.name === user.name) {
-                       this.showMsg('用户名已经存在')
-                   } else {
+                if (localUser) {
+                    if (localUser.name === user.name) {
+                        this.showMsg('用户名已经存在')
+                    } else {
                        this.login(user)
-                   }
-               } else {
-                   this.login(user)
-               }
+                    }
+                } else {
+                    this.login(user)
+                }
            }
        },
        login(user) {
-            ls.setItem('user', user)
+            //ls.setItem('user', user)
+            this.$store.dispatch('login', user)
             this.showMsg('注册成功')
        },
        showMsg(msg, type = 'warning') {
