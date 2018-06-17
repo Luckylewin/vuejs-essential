@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './directives/index'
+import './components/index'
 
 Vue.config.productionTip = false
 
