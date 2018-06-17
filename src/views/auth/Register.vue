@@ -23,6 +23,7 @@
                         <label class="control-label">图片验证码</label>
                         <input v-validator.required="{ title: '图片验证码' }" type="text" class="form-control" placeholder="请填写验证码">
                     </div>
+                    
                     <div class="thumbnail" title="点击图片重新获取验证码" @click="getCaptcha">
                         <div class="captcha vcenter" v-html="captchaTpl"></div>
                     </div>
@@ -45,14 +46,17 @@ export default {
             captchaTpl: ''
         }
     },
+    //生命周期钩子函数
     created() {
         this.getCaptcha()
     },
     methods: {
        getCaptcha() {
             const { tpl, captcha } = createCaptcha()
-
+            
             this.captchaTpl = tpl
+            // 添加了一个自定义的属性，我们稍后会在其他方法中访问 this.localCaptcha，
+            // 因为它不是模板所需的数据，所以不用把它添加到 data。
             this.localCaptcha = captcha
        }
     }
