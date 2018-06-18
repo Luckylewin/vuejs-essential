@@ -12,9 +12,13 @@ export  default  {
             const target = e.target
            
             // 如果点击的是当前元素，或者当前元素的后代节点就不处理
-            if (target.isSameNode(el) || el.contains(target)) return
-            // 找到当前元素的元素，移除 open 类
-            el.parentElement.classList.remove('open')
+            if (target.isSameNode(el) || el.contains(target)) {
+                return
+            } else {
+                 // 找到当前元素的父元素，移除 open 类(点击非触发点 取消下拉框)
+                 el.parentElement.classList.remove('open')    
+            }
+           
         }
 
         el.addEventListener('click', handler, false)
