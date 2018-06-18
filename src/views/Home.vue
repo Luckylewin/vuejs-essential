@@ -28,8 +28,12 @@ export default {
                 switch (fromName) {
                     // 显示注册成功
                     case 'Register':
-                    vm.showMsg('注册成功')
+                        vm.showMsg('注册成功')
                     break
+                    case 'Login':
+                        vm.showMsg('登录成功')
+                    break    
+
                 }    
             } else if (logout) {
                 // logout 返回 true 的时候，显示操作成功
