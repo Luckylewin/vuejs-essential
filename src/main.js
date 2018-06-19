@@ -6,11 +6,15 @@ import router from './router'
 import './directives/index'
 import './components/index'
 import store from './store'
-// 引入插件
+// 引入alert插件
 import VueSweetalert2 from './plugins/vue-sweetalert2'
+// 引入消息插件
+import Message from './plugins/message'
 
-// 使用插件
+// 使用 alert 插件
 Vue.use(VueSweetalert2)
+// 使用 message 插件
+Vue.use(Message)
 
 Vue.config.productionTip = false
 
