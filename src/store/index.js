@@ -38,13 +38,13 @@ const actions = {
     // 更新个人信息
     updateUser(context, user) {
         const stateUser = context.state.user
-
-        if (stateUser && typeof State === 'object') {
+        
+        if (stateUser && typeof stateUser === 'object') {
             user = { ...stateUser, ...user }
             // 相当于合并新旧信息 
             // user = Object.assign({}, stateUser, user)
         }
-
+     
         //更新个人信息
         context.commit('UPDATE_USER', user)
     }

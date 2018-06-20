@@ -32,7 +32,21 @@ export default [
               name: 'EditProfile',
               component: () => import('@/views/users/Profile'),
               meta: { auth: true}
+          },
+          
+          {
+              path: '/users/1/edit_avatar',
+              name: 'EditAvatar',
+              component:() => import('@/views/users/Avatar'),
+              meta: { auth: true}
+          },
+
+          {
+              path: '/users/1/edit_password',
+              name: 'EditPassword',
+              component: () => import('@/views/users/Password')
           }
+         
         ]
       },
       
