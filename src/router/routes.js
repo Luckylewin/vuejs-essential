@@ -49,5 +49,13 @@ export default [
          
         ]
       },
+
+      // 创建文章
+      {
+         path: '/articles/create',
+         name: 'Create',
+         component: () => import('@/views/articles/Create'),
+         meta: { auth: true }
+      }
       
 ];

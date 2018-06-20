@@ -25,7 +25,7 @@ div#reply_notice{margin-bottom:15px;border:1px solid #ddd;}
 code[class*="lang-"],pre[class*="lang-"]{border-radius:4px !important;color:#f8f8f2;background:none;text-shadow:none;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;hyphens:none;}
 div {
   .editor-preview-active-side h1,.editor-preview h1,.markdown-body h1,.markdown-reply h1{padding-bottom:0.3em;font-size:2.25em;line-height:1.2;border-bottom:1px solid #eee;}.editor-preview-active-side h2,.editor-preview h2,.markdown-body h2,.markdown-reply h2{padding-bottom:0.3em;font-size:1.3em;line-height:1.225;border-bottom:1px solid #eee;}.editor-preview-active-side h3,.editor-preview h3,.markdown-body h3,.markdown-reply h3{font-size:1.2em;line-height:1.43;}
-  .editor-preview pre,.editor-preview-side pre,.preview.markdown-body pre {background:rgba(54,56,58,.98);}
+  .editor-preview pre,.editor-preview-side pre,.preview.markdown-body pre {background:rgba(54,56,58,.98);color: #fff}
   .comment-editor .CodeMirror,.comment-editor .CodeMirror-scroll { min-height: 150px;}
 }
 .i-middle {position: relative;top: -2px;vertical-align: middle;}
