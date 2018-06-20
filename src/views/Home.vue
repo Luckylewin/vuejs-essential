@@ -24,7 +24,7 @@ export default {
         next(vm => {
             // 通过 vm 参数访问组件实例，已登录时，评估路由名称
             if (vm.$store.state.auth) {
-                console.log(fromName)
+               
                 switch (fromName) {
                     // 显示注册成功
                     case 'Register':
