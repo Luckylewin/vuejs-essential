@@ -56,6 +56,13 @@ export default [
          name: 'Create',
          component: () => import('@/views/articles/Create'),
          meta: { auth: true }
+      },
+
+      // 内容页
+      {
+          path: '/articles/:articleId/content',
+          name: 'Content',
+          component: () => import('@/views/articles/Content.vue')
       }
       
 ];
