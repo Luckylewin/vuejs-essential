@@ -9,7 +9,7 @@
                     <div id="data-validator-form">
                         <!-- title -->
                         <div class="form-group">
-                            <input v-model="title" type="text" class="form-control" v-validator.required="{ title: '标题'}"  placeholder="请填写标题">
+                            <input v-model="title" type="text" class="form-control" v-validator.required="{ title: '标题'}"  placeholder="请填写标题" @input="saveTitle">
                         </div>
                         <!-- content -->
                         <div class="form-group">
@@ -17,7 +17,7 @@
                         </div>
                         <br>
                         <div class="form-group">
-                            <button @click="post" class="btn btn-primary" type="submit">发 布</button>
+                            <button @click="post" class="btn btn-primary" type="submit">{{ articleId ? '编辑文章' : '发布文章' }}</button>
                         </div>
                     </div>
 
@@ -40,7 +40,28 @@ export default {
     data(){
         return {
             title: '',
-            content: ''
+            content: '',
+            articleId: undefined // 文章 ID
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            // 确认渲染组件对应的路由时，设置articleId
+            vm.setArticleId(vm.$route.params.articleId)
+        })
+    },
+    // 在离开该组件的对应路由前
+    beforeRouteLeave(to, from, next) {
+        // 清空自动保存的文章数据
+        this.clearData()
+        next()
+    },
+    watch: {
+        // 监听路由参数的变化
+        '$route'(to) {
+         
+            this.clearData(),
+            this.setArticleId(to.params.articleId)
         }
     },
     mounted() {
@@ -74,16 +95,24 @@ export default {
             ls.setItem('smde_title', this.title)
         },
         // 初始化标题和内容
-        fillContent() {
-            const simplemde = this.simplemde
-            const title = ls.getItem('smde_title')
-             // 如果 localStorage 有标题数据，使用它作为文章标题
-            if (title !== null) {
-                this.title = title
-            }
+        fillContent(articleId) {
+           const simplemde = this.simplemde
+           const smde_title = ls.getItem('smde_title')
 
-            // 使用编辑器的内容作为文章内容
-            this.content = simplemde.value()
+           if (articleId !== undefined) {
+               const article = this.$store.getters.getArticleById(articleId)
+
+               if (article) {
+                   const { title, content } = article
+
+                   this.title = smde_title || title
+                   this.content = simplemde.value() || content
+                   simplemde.value(this.content)
+               }
+           } else {
+               this.title = smde_title
+               this.content = simplemde.value()
+           }
         },
         // 发布
         post() {
@@ -97,7 +126,7 @@ export default {
                     content    
                 }
                 // 分发 post 事件，并附带参数
-                this.$store.dispatch('post', { article })
+                this.$store.dispatch('post', { article, articleId: this.articleId })
                 // 清除数据
                 this.clearData()
             }
@@ -110,6 +139,21 @@ export default {
             this.simplemde.value('')
             // 清除编辑器自动保存的内容
             this.simplemde.clearAutosavedValue()
+        },
+        // 设置 articleId
+        setArticleId(articleId) {
+            // 获取 localStorage 保存的 articleId，临时用它来判断是否还处于当前编辑页面
+            const localArticleId = ls.getItem('articleId')
+            
+            // 手动在两个不同的编辑页面之间跳转时(如 /articles/1/edit 和 /articles/2/edit)
+            if (articleId !== undefined && !(articleId === localArticleId)) {
+                // 清空自动保存的文章数据
+                this.clearData()
+            }
+
+            this.articleId = articleId
+            this.fillContent(articleId)
+            ls.setItem('articleId', articleId)
         }
     }
 }

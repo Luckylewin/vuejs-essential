@@ -10,6 +10,8 @@ import store from './store'
 import VueSweetalert2 from './plugins/vue-sweetalert2'
 // 引入消息插件
 import Message from './plugins/message'
+// 引入 filter 过滤器
+import './filters/index'
 
 // 使用 alert 插件
 Vue.use(VueSweetalert2)
