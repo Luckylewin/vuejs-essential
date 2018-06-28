@@ -125,10 +125,11 @@ export default {
                     title,
                     content    
                 }
+              
                 // 分发 post 事件，并附带参数
                 this.$store.dispatch('post', { article, articleId: this.articleId })
                 // 清除数据
-                this.clearData()
+               // this.clearData()
             }
            
         },

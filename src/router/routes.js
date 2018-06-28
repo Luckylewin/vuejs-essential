@@ -10,12 +10,7 @@ export default [
         name: 'Home',
         component: () => import('@/views/Home')
       },
-      // 其它未配置的路由都跳转到首页
-      {
-        path: '*',
-        //重定向
-        redirect: '/'
-      },
+     
       {
         path: '/auth/login',
         name: 'Login',
@@ -57,20 +52,37 @@ export default [
          component: () => import('@/views/articles/Create'),
          meta: { auth: true }
       },
-
-      // 内容页
-      {
-          path: '/articles/:articleId/content',
-          name: 'Content',
-          component: () => import('@/views/articles/Content.vue')
-      },
-
       // 编辑文章路由
       {
           path: '/articles/:articleId/edit',
           name: 'Edit',
           component: () => import('@/views/articles/Create.vue'),
           meta: { auth: true}
-      }
+      },
+
+      // 侧边栏路由
+      {
+         path: '/:user',
+         component: () => import('@/views/articles/Column'),
+         children: [
+           {
+              path: '',
+              name: 'Column',
+              component: () => import('@/views/articles/List.vue')
+           },
+           {
+              path: '/articles/:articleId/content',
+              name: 'Content',
+              component: () => import('@/views/articles/Content.vue')
+           }
+         ]
+      },
+
+      // 其它未配置的路由都跳转到首页
+      {
+       path: '*',
+       //重定向
+       redirect: '/'
+      },
       
 ];
