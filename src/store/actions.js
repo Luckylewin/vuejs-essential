@@ -121,53 +121,59 @@ export const like = ({ commit, state }, { articleId, isAdd }) => {
     return likeUsers
 }
 
-export const comment = ({ commit, state}, { articleId, comment, commentId}) => {
-    // 仓库的文章
+export const comment = ({ commit, state }, { articleId, comment, commentId }) => {
     let articles = state.articles
-    // 评论列表
     let comments = []
-
+  
     if (!Array.isArray(articles)) articles = []
-
+  
     for (let article of articles) {
-        if (parseInt(article.articleId) === parseInt(articleId)) {
-            // 更新评论列表
-            comments = Array.isArray(article.comments) ? article.comments : comments
-
-            if (comment) {
-                // 获取用户传入的评论内容，设置用户的ID默认值为 1
-                const { uid = 1, content} = comment
-                const date = new Date()
-
-                if (commentId == undefined) {
-                    const lastComment = comments[comments.length - 1]
-
-                    // 新建 commentId
-                    if (lastComment) {
-                        commentId = parseInt(lastComment.commentId) + 1
-                    } else {
-                        commentId = comments.length + 1
-                    }
-
-                    // 在评论中加入当前评论
-                    comments.push({
-                        uid,
-                        commentId,
-                        content,
-                        date
-                    })
-                } 
+      if (parseInt(article.articleId) === parseInt(articleId)) {
+        comments = Array.isArray(article.comments) ? article.comments : comments
+  
+        if (comment) {
+          const { uid = 1, content } = comment
+          const date = new Date()
+  
+          if (commentId === undefined) {
+            const lastComment = comments[comments.length - 1]
+  
+            if (lastComment) {
+              commentId = parseInt(lastComment.commentId) + 1
+            } else {
+              commentId = comments.length + 1
             }
-
-            // 更新文章的评论列表
-            article.comments = comments
-            break
+  
+            comments.push({
+              uid,
+              commentId,
+              content,
+              date
+            })
+          } else {
+            for (let comment of comments) {
+              if (parseInt(comment.commentId) === parseInt(commentId)) {
+                comment.content = content
+                break
+              }
+            }
+          }
+        } else { // 不存在评论内容时
+          for (let comment of comments) {
+            // 找到对应的评论时
+            if (parseInt(comment.commentId) === parseInt(commentId)) {
+              // 删除这条评论
+              comments.splice(comments.indexOf(comment), 1)
+              break
+            }
+          }
         }
+  
+        article.comments = comments
+        break
+      }
     }
-
-    // 提交 UPDATE_ARTICLES 以更新所有文章
+  
     commit('UPDATE_ARTICLES', articles)
-
-    // 返回评论列表
     return comments
-}
+  }
