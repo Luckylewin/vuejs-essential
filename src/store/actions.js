@@ -92,7 +92,7 @@ export const like = ({ commit, state }, { articleId, isAdd }) => {
 
             if (isAdd) {
                 // 是否已赞
-                const isAdded = likeUsers.some(likeUsers => parseInt(likeUser.uid) === uid)
+                const isAdded = likeUsers.some(likeUser => parseInt(likeUser.uid) === uid)
 
                 if (!isAdded) {
                     // 在点赞用户列表中加入当前用户

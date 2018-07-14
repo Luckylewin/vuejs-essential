@@ -13,7 +13,8 @@
         <ul class="list-group">
           <!-- 使用 v-for 指令渲染文章列表 -->
           <li v-for="article in articles" class="list-group-item">
-            <img v-if="user" :src="user.avatar" class="avatar avatar-small">
+ 
+          <img :src="article.uavatar" class="avatar avatar-small">
             <router-link :to="`/articles/${article.articleId}/content`" class="title">
               {{ article.title }}
             </router-link>
@@ -31,17 +32,26 @@
 import { mapState } from 'vuex'
 
 export default {
-    name: 'List',
-    computed: {
-        ...mapState([
-            'auth',
-            'user',
-            'articles'
-        ])
+  name: 'List',
+  data() {
+    return {
+      articles: [] // 对应用户文章
     }
+  },
+  computed: {
+    ...mapState([
+      'auth',
+      'user'
+    ])
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      // 确认渲染该组件的对应路由时，获取对应用户文章
+      vm.articles = vm.$store.getters.getArticlesByUid(null, to.params.user)
+    })
+  }
 }
 </script>
-
 <style scoped>
 
 </style>
