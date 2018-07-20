@@ -71,12 +71,12 @@ export default {
         {
           icon: 'envelope',
           title: '反馈问题',
-          link: 'mailto:summer@yousails.com'
+          link: 'mailto:876505905@qq.com'
         },
         {
           icon: 'weibo',
           title: '站长微博',
-          link: 'https://weibo.com/1837553744/profile?topnav=1&wvr=6'
+          link: ''
         },
         {
           icon: 'weixin',

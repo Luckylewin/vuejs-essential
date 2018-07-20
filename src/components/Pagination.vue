@@ -1,13 +1,13 @@
 <template>
     <ul v-if="totalPage > 1" class="pagination">
         <li :class="{ disabled: internalCurrentPage === 1}">
-            <a href="javascript:;" @click="changePage(internalCurrentPage - 1)"><<</a>
+            <a href="javascript:;" @click="changePage(internalCurrentPage - 1)">«</a>
         </li>
         <li v-for="n in totalPage" :class="{ active: internalCurrentPage === n}">
             <a href="javascript:;" @click="changePage(n)">{{ n }}</a>    
         </li>
         <li :class="{ disabled: internalCurrentPage === totalPage}">
-            <a href="javascript:;" @click="changePage(internalCurrentPage + 1)">>></a>
+            <a href="javascript:;" @click="changePage(internalCurrentPage + 1)">»</a>
         </li>
     </ul>
 </template>
