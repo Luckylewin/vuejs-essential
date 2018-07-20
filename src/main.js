@@ -14,6 +14,13 @@ import Message from './plugins/message'
 import './filters/index'
 import { mockArticles } from './mock/data'
 import ls from './utils/localStorage'
+// 运行 mock/index.js
+import './mock/index'
+// 引入 axios的默认值
+import axios from 'axios'
+
+// 将 axios 添加到 Vue.prototype 上，使其在实例内部所有组件可以使用
+Vue.prototype.$axios = axios
 
 // 使用 alert 插件
 Vue.use(VueSweetalert2)
