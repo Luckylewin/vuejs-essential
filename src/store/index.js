@@ -11,7 +11,8 @@ Vue.use(Vuex)
 const state = {
     user: ls.getItem('user'),
     auth: ls.getItem('auth'), // 添加 auth 来保存当前用户的登录状态
-    articles: ls.getItem('articles') // 所有文章状态
+    articles: ls.getItem('articles'), // 所有文章状态
+    searchValue: '' // 搜索值
 }
 
 const mutations = {
@@ -30,6 +31,11 @@ const mutations = {
     UPDATE_ARTICLES(state, article) {
         state.article = article
         ls.setItem('articles', article)
+    },
+
+    // 更新搜索值的事件类型
+    UPDATE_SEARCH_VALUE(state, searchValue) {
+        state.searchValue = searchValue
     }
 
 }
