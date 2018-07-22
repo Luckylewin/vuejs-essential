@@ -148,3 +148,29 @@ export const getArticlesByFilter = (state, getters) => (filter) => {
 
     return filteredArticles
 }
+
+export const getArticlesByKeyword = (state, getters) => (keyword) => {
+  let articles = getters.computedArticles
+  let results = []
+
+  if (Array.isArray(articles)) {
+    articles.forEach((article) => {
+      let { articleId, title, content } = article
+      const regex = new RegExp(`(${keyword})`, 'gi')
+
+      if (title.indexOf(keyword) !== -1 || content.indexOf(keyword) !== -1) {
+        // 使用 state.origin 代替 location.origin
+         // url 是文章中没有的数据，我们结合 articleId 拼出完整的路径
+        const url = `${state.origin}/articles/${articleId}/content`
+          // 给文章标题中的关键字加上高亮 $1 匹配第一个括号的内容
+        title = title.replace(regex, '<span class="highlight">$1</span>')
+         // 给文章内容中关键字加上高亮，只取内容前100个字体
+        content = content.substr(0, 100).replace(regex, '<span class="highlight">$1</span>')
+         // 等价于 results.push(Object.assign({}, article, {url: url, title: title, content:conent}))
+        results.push({...article, ...{ url, title, content }})
+      }
+    })
+  }
+
+  return results
+}

@@ -60,7 +60,12 @@ export default [
           component: () => import('@/views/articles/Create.vue'),
           meta: { auth: true}
       },
-
+      // Search
+      {
+        path: '/search',
+        name: 'Search',
+        component: () => import('@/views/Search')
+      },
       // 侧边栏路由
       {
          path: '/:user',

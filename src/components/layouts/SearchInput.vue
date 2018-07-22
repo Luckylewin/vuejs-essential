@@ -34,8 +34,9 @@ export default {
     methods: {
         search() {
             const value = this.value
-            if (value !== '') {
-                console.log(value)
+             if (value !== '') {
+                // 跳转到搜索结果页，附带查询参数 q 作为搜索值
+                this.$router.push({ name: 'Search', query: { q: value } })
             }
         },
         // 更新 searchValue

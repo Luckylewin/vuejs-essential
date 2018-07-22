@@ -12,7 +12,8 @@ const state = {
     user: ls.getItem('user'),
     auth: ls.getItem('auth'), // 添加 auth 来保存当前用户的登录状态
     articles: ls.getItem('articles'), // 所有文章状态
-    searchValue: '' // 搜索值
+    searchValue: '', // 搜索值
+    origin: location.origin
 }
 
 const mutations = {
